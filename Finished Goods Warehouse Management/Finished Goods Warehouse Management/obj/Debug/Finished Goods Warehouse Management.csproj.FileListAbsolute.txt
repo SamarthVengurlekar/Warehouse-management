@@ -1,0 +1,21 @@
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\Finished Goods Warehouse Management.exe.config
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\Finished Goods Warehouse Management.exe
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\Finished Goods Warehouse Management.pdb
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.csproj.AssemblyReference.cache
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.csproj.SuggestedBindingRedirects.cache
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished_Goods_Warehouse_Management.Form1.resources
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished_Goods_Warehouse_Management.Properties.Resources.resources
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.csproj.GenerateResource.cache
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.csproj.CoreCompileInputs.cache
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.exe
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.pdb
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\MySql.Data.DLL
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\System.Memory.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\System.Numerics.Vectors.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\System.Buffers.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished Goods Warehouse Management.csproj.CopyComplete
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\obj\Debug\Finished_Goods_Warehouse_Management.PickList.resources
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\BouncyCastle.Crypto.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\itextsharp.dll
+D:\FGWM\Finished Goods Warehouse Management\Finished Goods Warehouse Management\bin\Debug\itextsharp.xml
