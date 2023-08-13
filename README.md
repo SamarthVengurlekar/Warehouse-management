@@ -1,6 +1,5 @@
 # Warehouse-management
-This repository contains entire project in C# for the wahehouse management system, more specifically Finished Goods Warehouse Management system or FGWH.
-
+This repository contains entire project in C# for the wahehouse management system, more specifically Finished Goods Warehouse Management system or FGWH. 
 ### Here's what the code does in simpler terms:
 
 1.  connects to a computer "database" that stores all the information about orders and products.<br>
@@ -10,5 +9,8 @@ This repository contains entire project in C# for the wahehouse management syste
 5. The program can also create something like a "shopping list" called a "pick list" for the workers. This list helps them find the right products quickly.<br>
 6. If products need to be moved or sent out, the program helps with that too. It updates the records and shows what stage the products are in (like packaging or shipping).<br>
 7. The program also has a message box where it shows messages about what it's doing, like fetching information or completing tasks.<br>
+
+###### The database file is also attached above for the connection with MySql database replace "your_username" and "your_password" with your actual MySQL credentials in the form1.cs file.
+
 
 ###### Disclaimer - This project was part of my summer internship so make the proper use of it.
