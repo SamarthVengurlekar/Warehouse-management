@@ -16,8 +16,7 @@ namespace Finished_Goods_Warehouse_Management
     {
         MySql.Data.MySqlClient.MySqlConnection conn;
 
-        private string myConnectionString = "server=localhost;uid=root;" +
-                "pwd=Halapeti@1234;database= FinshedGoods";
+        private string myConnectionString = "server=localhost;uid=root;pwd=Samarth@123;database= FinshedGoods";
 
         PickList PickListForm;
 
