@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="icon" href="C:\Users\samar\Desktop\Internship\favicon.ico" type="image/x-icon">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finished Goods Warehouse Management</title>
+    <style>
+        /* CSS styles for the page */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center; 
+            margin: 20px;
+        }
+
+        /* Style the tab */
+        .tab {
+            overflow: hidden;
+            background-color: #f1f1f1;
+        }
+
+        /* Style the buttons inside the tab */
+        .tab button {
+            background-color: inherit;
+            float: left;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            transition: 0.5s;
+            font-size: 17px;
+            overflow: hidden;
+            position: relative;
+            border-radius: 15px 15px 15px 15px;
+        }
+        .tab button::before {
+            content: '';
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 50%;
+            transform: scale(0);
+            transition: transform 0.3s ease-out;
+            pointer-events: none;
+        }
+        
+        .tab button:focus::before,
+        .tab button:hover::before {
+            transform: scale(2);
+        }
+
+        /* Change background color of buttons on hover */
+        .tab button:hover {
+            background-color: #ddd;
+        }
+
+        /* Create an active/current tablink class */
+        .tab button.active {
+            background-color: #ccc;
+        }
+
+        /* Style the tab content */
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+        }
+
+        /* Show the content of the active tab */
+        .tabcontent.active {
+            display: block;
+        }
+
+        /* Style for the tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        th, td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the buttons */
+        .btn {
+            margin-right: 10px;
+            padding: 8px 16px;
+            font-size: 14px;
+            cursor: pointer;
+            border: none;
+            border-radius: 30px;
+        }
+
+        .btn-primary {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-warning {
+            background-color: #FFC107;
+            color: #000;
+        }
+
+        .btn-warning:hover {
+            background-color: #ffa000;
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-success {
+            background-color: #28A745;
+            color: #fff;
+        }
+
+        .btn-success:hover {
+            background-color: #1b6c2e;
+            transform: scale(1.05);
+            transition: transform 0.2s ease-in-out;
+        }
+
+        .btn-secondary {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+            transform: scale(1.09);
+            transition: transform 0.2s ease-in-out;
+        }
+
+
+
+        /* Style for the log messages box */
+        #MessageBox {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            max-height: 250px;
+            overflow-y: auto;
+            color: #000;
+            border-radius: 4px;
+
+        }
+
+         /* Style for the Incoming Goods tab content */
+        #IncomingGoodsTab {
+            background-color: #f1f1f1; /* Set the background color */
+            font-family: Arial, sans-serif; /* Set the font */
+        }
+
+        /* Style for the Incoming Goods table */
+        #IncomingGoodsTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #IncomingGoodsTable th,
+        #IncomingGoodsTable td {
+            padding: 8px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        #IncomingGoodsTable th {
+            background-color: #f2f2f2;
+        }
+
+        /* Style for the Incoming Goods messages box */
+        #IncomingGoodsMessages {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border: 1px solid #ccc;
+            max-height: 200px;
+            overflow-y: auto;
+            color: #000;
+        }
+            /* Additional styles for the Overview tab */
+            .overview-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .overview-card {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-in-out forwards;
+        }
+        @keyframes fadeIn {
+             from {
+                 opacity: 0;
+                 transform: translateY(20px);
+             }
+             to {
+                 opacity: 1;
+                 transform: translateY(0);
+             }
+        }
+
+        .overview-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .overview-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007BFF;
+        }
+
+        .tabcontent {
+        display: none;
+        padding: 20px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        transition: opacity 0.3s linear; /* Add transition for opacity */
+        opacity: 0; /* Initially set opacity to 0 */
+        }
+
+        .tabcontent.active {
+        display: block;
+        opacity: 1; /* Set opacity to 1 for active tab content */
+        }
+
+        @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateX(100%);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+        }
+
+        @keyframes slideOut {
+            from {
+                opacity: 1;
+                transform: translateX(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateX(-100%);
+            }
+        }
+
+        .tabcontent.active {
+            display: block;
+            animation-name: slideIn;
+        }
+        
+        .tabcontent.exit {
+            animation-name: slideOut;
+        }
+
+        /* Animation for highlighting table rows on click */
+        table tr:hover {
+            background-color: #f2f2f2;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        @media screen and (max-width: 768px) {
+            body {
+                font-size: 14px; /* Adjust font size for smaller screens */
+            }
+
+            .tab button {
+                font-size: 14px; /* Adjust button font size */
+            }
+
+            /* Add more responsive styles as needed */
+        }
+
+        /* Add a media query for screens smaller than 480px */
+        @media screen and (max-width: 480px) {
+            body {
+                font-size: 12px; /* Further adjust font size for even smaller screens */
+            }
+
+            .tab button {
+                font-size: 12px; /* Adjust button font size */
+            }
+
+            /* Add more responsive styles as needed */
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .content {
+            padding: 20px;
+            background-color: #f2f2f2;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                font-size: 12pt;
+            }
+
+            .content {
+                padding: 0;
+                background-color: #fff; /* Use white background for printing */
+            }
+
+            /* Hide unnecessary elements in print */
+            .hide-in-print {
+                display: none;
+            }
+
+            /* Add page break before each section */
+            .section {
+                page-break-before: always;
+            }
+        }
+
+        /* Styles for the "Print this page" button */
+        .print-button {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            font-size: 10pt;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        /* Add this CSS to your <style> section */
+        .notification {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: top 0.3s ease-in-out;
+        }
+
+        .hide {
+            top: -100px;
+        }
+
+
+        
+    </style>
+</head>
+<body>
+
+        <h1>Finished Goods Warehouse Management</h1>
+        <button class="print-button hide-in-print" onclick="window.print()">Screenshot</button>
+            <!-- Add this HTML at the top of the <body> tag -->
+        <div id="notification" class="notification hide">
+            <span id="notificationMessage"></span>
+            <button id="closeNotification" class="close-button">Close</button>
+        </div>
+
+
+        <!-- Tabs -->
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'OverviewTab')">Overview</button>
+            <button class="tablinks" onclick="openTab(event, 'OrdersTab')">Orders</button>
+            <button class="tablinks" onclick="openTab(event, 'IncomingGoodsTab')">Incoming Goods</button>
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="OverviewTab" class="tabcontent">
+            <h2>Overview of the Warehouse</h2>
+            <div class="overview-container">
+                <div class="overview-card fadeIn">
+                    <h3>Total Orders</h3>
+                    <p id="totalOrdersOverview" class="overview-value">Loading...</p>
+                </div>
+                <div class="overview-card fadeIn">
+                    <h3>Available Products</h3>
+                    <p id="availableProductsOverview" class="overview-value">Loading...</p>
+                </div>
+                <div class="overview-card fadeIn">
+                    <h3>Incoming Goods</h3>
+                    <p id="incomingGoodsOverview" class="overview-value">Loading...</p>
+                </div>
+            </div>
+        </div>
+        
+        
+
+        <div id="OrdersTab" class="tabcontent">
+            <h2>Orders</h2>
+            <table id="OrderTable">
+                <tr>
+                    <th>OrderID</th>
+                    <th>CustomerID</th>
+                    <th>ProductTypeID</th>
+                    <th>Quantity</th>
+                    <th>Date</th>
+                    <th>DueDate</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+                <tr data-order-id="1">
+                    <td>KLE1234</td>
+                    <td>dep0145</td>
+                    <td>large</td>
+                    <td>2</td>
+                    <td>02/08/2023</td>
+                    <td>15/08/2023</td>
+                    <td class="status">In Progress</td>
+                    <td>
+                        <button class="btn btn-warning" onclick="generatePickList(1)">Generate Picklist</button>
+                        <button class="btn btn-success" onclick="sendForPackaging(1)">Send for Packaging</button>
+                        <button class="btn btn-success" onclick="sendForShipping(1)">Send for Shipping</button>
+                    </td>
+                </tr>
+                
+                <!-- Add more rows here for your sample data -->
+            </table>
+            <div id="MessageBox" class="btn-secondary">
+                <!-- The log messages will be shown here -->
+            </div>
+            <button class="btn btn-secondary" onclick="refreshOrders()">Refresh Orders</button>
+            </div>
+
+             <!-- Tab Contents -->
+            <div id="IncomingGoodsTab" class="tabcontent">
+                <h2>Incoming Goods</h2>
+                <table id="IncomingGoodsTable">
+                    <tr>
+                        <th>ProductID</th>
+                        <th>TypeID</th>
+                        <th>StorageLocation</th>
+                        <th>ProductStatus</th>
+                        <th>Action</th>
+                    </tr>
+                    <tr>
+                        <td>lar46</td>
+                        <td>large</td>
+                        <td class="storage-location"></td>
+                        <td>Received</td>
+                        <td>
+                            <button class="btn btn-warning" onclick="assignStorageLocation('P001')">Assign Storage Location</button>
+                        </td>
+                    </tr>
+                    <!-- Add more rows here for your sample data -->
+                </table>
+                <div id="IncomingGoodsMessages" class="btn-secondary">
+                    <!-- The log messages will be shown here -->
+                </div>
+                <button class="btn btn-primary" onclick="refreshIncomingGoods()">Refresh Incoming Goods</button>
+            </div>
+
+
+
+        <!-- JavaScript for the tab functionality -->
+        <script>
+
+            // Add this JavaScript code to handle notifications
+            const notification = document.getElementById('notification');
+            const notificationMessage = document.getElementById('notificationMessage');
+            const closeNotification = document.getElementById('closeNotification');
+                
+            function showNotification(message) {
+                notificationMessage.textContent = message;
+                notification.classList.remove('hide');
+                setTimeout(() => {
+                    notification.classList.add('hide');
+                }, 3000); // Hide after 3 seconds
+            }
+            
+            closeNotification.addEventListener('click', () => {
+                notification.classList.add('hide');
+            });
+
+
+            function openTab(event, tabName) {
+                // Hide all tab contents
+                const tabcontents = document.getElementsByClassName("tabcontent");
+                for (let i = 0; i < tabcontents.length; i++) {
+                    tabcontents[i].classList.remove("active");
+                    tabcontents[i].style.opacity = 0; // Set opacity to 0 for all tab contents
+                }
+            
+                // Remove the active class from all tab links
+                const tablinks = document.getElementsByClassName("tablinks");
+                for (let i = 0; i < tablinks.length; i++) {
+                    tablinks[i].classList.remove("active");
+                }
+            
+                // Show the selected tab content and set the button as active
+                const activeTabContent = document.getElementById(tabName);
+                activeTabContent.classList.add("active");
+                event.currentTarget.classList.add("active");
+            
+                // After a short delay, set opacity to 1 for the active tab content
+                setTimeout(() => {
+                    activeTabContent.style.opacity = 1;
+                }, 50); // You can adjust the delay value if needed
+            }
+
+            // Function to generate the picklist
+            async function generatePickList(orderId) {
+                const picklistContent = `
+                <h1>Picklist for OrderID ${orderId}</h1>
+                <p>Product 1: Qty 50</p>
+                <p>Product 2: Qty 30</p>
+                <p>Product 3: Qty 20</p>
+                `;
+                const element = document.createElement('div');
+                element.innerHTML = picklistContent;
+
+                const opt = {
+                    margin: [10, 10, 10, 10],
+                    filename: `Picklist_${orderId}.pdf`,
+                    image: { type: 'jpeg', quality: 0.98 },
+                    html2canvas: { scale: 2 },
+                    jsPDF: { unit: 'mm', format: 'a6', orientation: 'portrait' }
+                };
+
+                try {
+                    const pdf = await html2pdf().from(element).set(opt).outputPdf();
+                    const blob = new Blob([pdf], { type: 'application/pdf' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement("a");
+                    a.href = url;
+                    a.download = `Picklist_${orderId}.pdf`;
+                    a.target = "_blank"; // Open in a new tab/window
+                    document.body.appendChild(a);
+                    a.click();
+
+                    // Clean up the anchor element after download
+                    a.remove();
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    // Update order status and message
+                    updateOrderStatusAndMessage(orderId, "Picklist Generated", "Picklist generated");
+                } catch (error) {
+                    console.error('Error generating picklist:', error);
+                }
+            }
+            // Function for sending for packaging
+            function sendForPackaging(orderId) {
+                // Simulate sending for packaging logic
+                setTimeout(() => {
+                    updateOrderStatusAndMessage(orderId, "Packaging In Progress", "Sent for Packaging");
+                }, 1000); // Simulating a delay for demonstration
+            }
+            // Function for sending for shipping
+            function sendForShipping(orderId) {
+                // Simulate sending for shipping logic
+                setTimeout(() => {
+                    updateOrderStatusAndMessage(orderId, "Shipping In Progress", "Sent for Shipping");
+                }, 1000); // Simulating a delay for demonstration
+            }
+            
+            // Function to update order status and display messages
+            // Add new log messages with a scrolling effect
+            function updateOrderStatusAndMessage(orderId, newStatus, actionMessage) {
+                const orderStatusCell = document.querySelector(`#OrderTable tr[data-order-id="${orderId}"] td.status`);
+                if (orderStatusCell) {
+                    orderStatusCell.textContent = newStatus;
+                }
+                const messageBox = document.getElementById("MessageBox");
+                messageBox.innerHTML += `<p>${actionMessage} for OrderID ${orderId}.</p>`;
+
+                // Scroll to the bottom of the message box
+                messageBox.scrollTop = messageBox.scrollHeight;
+            }
+
+
+            function assignStorageLocation(productId) {
+                // Here, you need to implement the logic to assign a storage location to the product with the given productId.
+                // For this example, I'll assume you have a function called 'getRandomStorageLocation()' that returns a randomly generated storage location.
+                const storageLocation = getRandomStorageLocation(); // You should replace this with your own implementation.
+
+                // Update the table cell with the assigned storage location
+                const tableRow = document.querySelector(`#IncomingGoodsTable tr[data-product-id="${productId}"]`);
+                const storageLocationCell = document.querySelector(`#IncomingGoodsTable tr[data-product-id="${productId}"] .storage-location`);
+                const productStatusCell = storageLocationCell.nextElementSibling;
+                    if (storageLocationCell.textContent === "") {
+                        // Simulating storage location assignment
+                        const building = "B1";
+                        const aisle = "A2";
+                        const bay = "Bay3";
+                        const tier = "Tier1";
+                        const position = "Pos2";
+                    
+                        const storageLocation = `${building}-${aisle}-${bay}-${tier}-${position}`;
+                    
+                        storageLocationCell.textContent = storageLocation;
+                        productStatusCell.textContent = "Assigned";
+                    } else {
+                        console.log("Location already assigned");
+                    }
+                // Show success message in the message box for Incoming Goods tab
+                const incomingGoodsMessages = document.getElementById("IncomingGoodsMessages");
+                    incomingGoodsMessages.innerHTML += `<p>Storage location '${storageLocation}' assigned to ProductID ${productId}.</p>`;
+
+                const building = 1;
+                const aisle = "AAA";
+                const bay = 6;
+                const tier = "E";
+                const position = 3;
+
+                fetch("db_operations.php", {
+                    method: "POST",
+                    body: JSON.stringify({
+                        action: "assignStorageLocation",
+                        productId: productId,
+                        building: building,
+                        aisle: aisle,
+                        bay: bay,
+                        tier: tier,
+                        position: position
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Update the table row and message box
+                        // ... Your existing code ...
+                    } else {
+                        // Handle error
+                        console.error("Error assigning storage location:", data.error);
+                    }
+                })
+                .catch(error => {
+                    console.error("Fetch error:", error);
+                });    
+            }
+
+
+            // Sample function to generate random storage location
+            function getRandomStorageLocation() {
+                const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                const digits = "0123456789";
+                let storageLocation = "";
+
+                for (let i = 0; i < 3; i++) {
+                    storageLocation += letters.charAt(Math.floor(Math.random() * letters.length));
+                }
+
+                for (let i = 0; i < 3; i++) {
+                    storageLocation += digits.charAt(Math.floor(Math.random() * digits.length));
+                }
+
+                return storageLocation;
+            }
+
+            // Function to update the Overview tab with dynamic data
+            const totalOrders = document.getElementById("OrderTable").querySelectorAll("tr").length - 1; // Subtract 1 to exclude header row
+            function updateOverview() {
+                const incomingGoods = document.querySelectorAll("#IncomingGoodsTable tr").length - 1; // Subtract 1 to exclude header row
+                const availableProducts = document.querySelectorAll("#IncomingGoodsTable tr td[data-product-id]").length;
+
+                document.getElementById("totalOrdersOverview").textContent = totalOrders;
+            // Update the placeholders with the actual values
+                document.getElementById("incomingGoodsOverview").textContent = incomingGoods;
+                document.getElementById("availableProductsOverview").textContent = availableProducts;
+            }
+
+        // Call this function whenever you want to update the Overview tab
+        updateOverview();
+
+
+        
+
+        
+
+                
+            // ... Your other JavaScript functions for data population and button functionalities ...
+        </script>
+</body>
+</html>
